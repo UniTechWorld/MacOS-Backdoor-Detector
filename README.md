@@ -47,7 +47,7 @@ macOS 后门检测工具是一个用于 macOS 系统的数字取证和应急响�
    ```
 2. Change to the project directory:
    ```
-   cd Macos-Backdoor-Detector
+   cd MacOS-Backdoor-Detector
    ```
 3. Make the script executable:
    ```
@@ -61,7 +61,7 @@ macOS 后门检测工具是一个用于 macOS 系统的数字取证和应急响�
    ```
 2. 进入项目目录：
    ```
-   cd Macos-Backdoor-Detector
+   cd MacOS-Backdoor-Detector
    ```
 3. 使脚本可执行：
    ```
