@@ -7,8 +7,9 @@ if [ -n "$net_output" ]; then
   echo "$net_output"
   
   echo -e "\n--- Checking Foreign IP Addresses ---"
-  # 提取Foreign Address，并去除端口号部分
-  foreign_ips=$(echo "$net_output" | awk '{print $5}' | cut -d. -f1-4 | sort | uniq)
+  # 提取Foreign Address，并正确去除端口号部分
+  # 对于macOS，使用正则表达式处理IP地址（IP地址最多有4个小数点）
+  foreign_ips=$(echo "$net_output" | awk '{print $5}' | sed -E 's/([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$/\1/' | sort | uniq)
   
   if [ -n "$foreign_ips" ]; then
     echo "Found Foreign IP Addresses:"
@@ -58,7 +59,7 @@ if [ -n "$net_output" ]; then
             local_addr=$(echo "$connection" | awk '{print $4}')
             
             # 提取本地端口
-            local_port=$(echo "$local_addr" | cut -d. -f5)
+            local_port=$(echo "$local_addr" | sed -E 's/.*\.([0-9]+)$/\1/')
             if [ -n "$local_port" ]; then
               # 获取进程信息 (需要sudo权限)
               process_info=$(sudo lsof -i :$local_port | grep -v "COMMAND" | head -1)
